@@ -1,0 +1,78 @@
+# docker-compose.yml file is used to define the services that make up your app.
+version: '3.8'
+
+services:
+  itmeter:
+    container_name: itmeter
+    build:
+      context: .
+      dockerfile: ./dockerfiles/dev/django/Dockerfile
+    volumes:
+      - ./core:/usr/src/app
+    working_dir: /usr/src/app
+    # command: django-admin startproject core .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - SECRET_KEY=test
+    restart: always
+    depends_on:
+      - db
+    
+
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data/
+    environment:
+      POSTGRES_DB: itmeter_db
+      POSTGRES_USER: itmeter_user
+      POSTGRES_PASSWORD: itmeter_password
+    expose:
+      - "5432"
+    restart: always
+
+  
+  smtp4dev:
+    image: rnwood/smtp4dev:v3
+    restart: always
+    ports:
+      # Change the number before : to the port the web interface should be accessible on
+      - '5000:80'
+      # Change the number before : to the port the SMTP server should be accessible on
+      - '25:25'
+      # Change the number before : to the port the IMAP server should be accessible on
+      - '143:143'
+    volumes:
+      # This is where smtp4dev stores the database..
+        - smtp4dev-data:/smtp4dev
+    environment:
+      - ServerOptions__Urls=http://*:80
+      #Specifies the server hostname. Used in auto-generated TLS certificate if enabled.
+      - ServerOptions__HostName=smtp4dev
+
+
+volumes:
+  postgres_data:
+  smtp4dev-data:
+
+
+
+# Down docker container
+# Remove docker images
+
+# OR in terminal :
+
+# terminal command : docker ps -a
+# terminal command : docker rm -f <container_id>
+
+# terminal command : docker images
+# terminal command : docker rmi -f <image_id> 
+
+# terminal command : docker-compose up --build
+
+# terminal command : docker-compose exec <container_name> sh -c "django-admin startproject core ."
+# terminal command : docker-compose exec <container_name> sh -c "python manage.py createsuperuser"
+
