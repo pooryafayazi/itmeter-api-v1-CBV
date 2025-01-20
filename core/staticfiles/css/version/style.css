@@ -1133,10 +1133,10 @@ div.tab button:hover {
     margin-right: 0.5rem;
 }
 
-.blog-meta small:after {
+/* .blog-meta small:after {
     content: "/";
     padding-left: 1rem;
-}
+} */
 
 .blog-meta small:last-child:after {
     content: ""

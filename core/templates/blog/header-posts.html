@@ -1,0 +1,45 @@
+{% load static %}
+{% if posts|length > 2 %}
+<section class="section first-section">
+    <div class="container-fluid">
+        <div class="masonry-blog clearfix">
+            {% for post in posts %}
+                {% if forloop.counter == 1 %}
+                    <div class="first-slot d-none d-md-block">
+                        <div class="masonry-box post-media">
+                            <img src="{{ post.image.url }}" alt="" class="img-fluid">
+                            <div class="shadoweffect">
+                                <div class="shadow-desc">
+                                    <div class="blog-meta">
+                                      <!--<span class="bg-orange"><a href="blog.html" title="">{{post.topic}}</a></span>-->
+                                        <h4><a href="{% url 'blog:post-single' pk=post.id %}" title="">{{post.title}}</a></h4>
+                                        <small><a href="{% url 'blog:post-single' pk=post.id %}" title="">{{post.published_date|date:"d D m Y"}}</a></small>
+                                        <small><a href="author.html" title="">{{post.author.first_name}} {{post.author.last_name}}</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                            </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end first-side -->
+                {% endif %} 
+                {% if forloop.counter == 2 or forloop.counter == 3 %}
+                    <div class="second-slot">
+                        <div class="masonry-box post-media">
+                            <img src="{{ post.image.url }}" alt="" class="img-fluid">
+                            <div class="shadoweffect">
+                                <div class="shadow-desc">
+                                    <div class="blog-meta">
+                                    <!--<span class="bg-orange"><a href="blog.html" title="">{{post.topic}}</a></span>-->
+                                        <h4><a href="{% url 'blog:post-single' pk=post.id %}" title="">{{post.title}}</a></h4>
+                                        <small><a href="{% url 'blog:post-single' pk=post.id %}" title="">{{post.published_date|date:"d D m Y"}}</a></small>
+                                        <small><a href="author.html" title="">{{post.author.first_name}} {{post.author.last_name}}</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end shadow-desc -->
+                            </div><!-- end shadow -->
+                        </div><!-- end post-media -->
+                    </div><!-- end second-side -->
+                {% endif %} 
+            {% endfor %}
+        </div><!-- end masonry -->
+    </div>
+</section>
+{% endif %}
