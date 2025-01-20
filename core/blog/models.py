@@ -13,22 +13,25 @@ from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-# from taggit.managers import TaggableManager
+from taggit.managers import TaggableManager
 # Create your models here.
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
     def __str__(self):
         return self.name
+    
+    
 class Post(models.Model):
     # image = models.ImageField(upload_to='blog/%Y/%m/%d/',default='blog/defaultPost.jpg')
+    image = models.ImageField(null=True, blank=True)
     #author = models.ForeignKey(User, on_delete=models.CASCADE)
     author = models.ForeignKey('accounts.Profile', on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=255)
-    # topic = models.ForeignKey('homepage.Topic', on_delete=models.SET_NULL, null=True)
+    topic = models.ForeignKey('homepage.Topic', on_delete=models.SET_NULL, null=True)
     content = models.TextField()
-    # tags = TaggableManager()
-    category = models.ManyToManyField(Category)
+    tags = TaggableManager()
+    category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True)
     counted_views = models.IntegerField(default=0) # default=0
     status = models.BooleanField(default=False)
     login_require = models.BooleanField(default=False)

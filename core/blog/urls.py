@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path,include
 # from .views import api_task_list_view
 from . import views
 from rest_framework.routers import DefaultRouter
@@ -21,3 +21,12 @@ urlpatterns = [
 ]
 
 urlpatterns += router.urls
+
+urlpatterns += [
+    path('posts/', views.PostListView.as_view(), name='post_list'),
+    path('create/', views.PostCreateView.as_view(), name='post-create'),
+    path('edit/<int:pk>/', views.PostUpdateView.as_view(), name='post-update'),
+    path('delete/<int:pk>/', views.PostDeleteView.as_view(), name='post-delete'),
+    path('complete/<int:pk>/', views.PostCompleteView.as_view(), name='post-complete'),
+    # path('api/v1/',include('tasks.api.v1.urls')),
+]

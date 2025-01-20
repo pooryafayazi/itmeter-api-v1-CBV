@@ -7,6 +7,7 @@ coreschema==0.0.4
 Django >4.2,<4.3
 django-filter==24.3
 django-mail-templated==2.6.5
+django-summernote==0.8.20.0
 djangorestframework==3.14.0
 djangorestframework_simplejwt==5.4.0
 drf-yasg[validation]
