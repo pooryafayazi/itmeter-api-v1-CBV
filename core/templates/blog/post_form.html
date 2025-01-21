@@ -1,0 +1,21 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post</title>
+    <link rel="stylesheet" href="{% static 'css/version/style.css' %}"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1>Create a New Post</h1>
+        <form method="post" enctype="multipart/form-data"> 
+            {% csrf_token %}
+            {{ form.as_p }} 
+            <button type="submit" class="btn btn-primary">Submit Post</button>
+        </form>
+        <a href="{% url 'blog:post_list' %}">Back to Posts</a>  <!-- Link to go back to the post list -->
+    </div>
+</body>
+</html>

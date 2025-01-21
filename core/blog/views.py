@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic.edit import FormView
 from django.urls import reverse
 from django.http import HttpResponseNotFound
-from .forms import PostCommentForm
+from .forms import PostCommentForm,CreatePostForm
 from .models import Post,PostComment
 from accounts.models import Profile
 
@@ -121,17 +121,33 @@ class PostDetailView(DetailView):
     
     
     
-
+'''
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
+    form_class = CreatePostForm
     template_name = 'blog/post_single.html'
-    fields = ['title','due_date']
+    fields = ['image','author','title','topic','','','due_date']
     success_url = '/'
     def form_valid(self, form):
         profile_instance = get_object_or_404(Profile, user=self.request.user)
         form.instance.creator = profile_instance
         return super().form_valid(form)
+ '''
+ 
     
+class PostCreateView(CreateView):
+    model = Post
+    form_class = CreatePostForm
+    template_name = 'blog/post_form.html' 
+    success_url = '/blog/posts/' 
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user.profile
+        if form.cleaned_data.get('image') is None:
+            form.add_error('image', 'لطفاً یک تصویر انتخاب کنید.')
+            return self.form_invalid(form)
+        return super().form_valid(form)
+   
     
     
 class PostUpdateView(LoginRequiredMixin, UpdateView):

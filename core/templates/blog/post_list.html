@@ -469,7 +469,11 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="{% url 'blog:post-detail' pk=post.id %}" title="">
+                                                {% if post.image_url %}
                                                 <img src="{{ post.image.url }}" alt="" class="img-fluid">
+                                                {% else %}
+                                                <p>عکس وجود ندارد.</p>
+                                                {% endif %}
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->

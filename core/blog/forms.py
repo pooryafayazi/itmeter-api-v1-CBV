@@ -1,5 +1,5 @@
 from django import forms
-from .models import PostComment
+from .models import PostComment,Post
 from accounts.models import Profile
 
 class PostCommentForm(forms.ModelForm):
@@ -25,3 +25,21 @@ class PostCommentForm(forms.ModelForm):
         if commit:
             comment.save()
         return comment
+    
+class CreatePostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['image', 'author', 'title', 'topic', 'content', 'tags', 'category', 'status', 'login_require', 'published_date']
+        widgets = {
+            'published_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'content': forms.Textarea(attrs={'rows': 5, 'cols': 20}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(CreatePostForm, self).__init__(*args, **kwargs)
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if not image:  # Handle the case where no image is uploaded
+            return None
+        return image

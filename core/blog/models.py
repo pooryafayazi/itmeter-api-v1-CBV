@@ -25,7 +25,7 @@ class Category(models.Model):
     
 class Post(models.Model):
     # image = models.ImageField(upload_to='blog/%Y/%m/%d/',default='blog/defaultPost.jpg')
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(upload_to='blog/%Y/%m/%d/',null=True, blank=True)
     #author = models.ForeignKey(User, on_delete=models.CASCADE)
     author = models.ForeignKey('accounts.Profile', on_delete=models.SET_NULL, null=True)
     title = models.CharField(max_length=255)
@@ -55,6 +55,11 @@ class Post(models.Model):
     def increment_views(self):
         self.counted_views += 1
         self.save(update_fields=['counted_views'])
+    @property
+    def image_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url
+        return None 
     
 
 class PostComment(models.Model):
