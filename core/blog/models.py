@@ -14,6 +14,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 from taggit.managers import TaggableManager
+from accounts.models import Profile,User
 # Create your models here.
 
 class Category(models.Model):
@@ -49,19 +50,25 @@ class Post(models.Model):
         return self.content[:100]
     
     def get_absolute_url(self):
-        return reverse('blog:single', kwargs={'post_id':self.id})
+        return reverse('blog:post-detail', kwargs={'post_id':self.id})
+    
+    def increment_views(self):
+        self.counted_views += 1
+        self.save(update_fields=['counted_views'])
     
 
 class PostComment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)  # Link to Profile
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to User model
     subject = models.CharField(max_length=255)
     message = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
-    updated_date = models.DateTimeField(auto_now_add=True)
+    updated_date = models.DateTimeField(auto_now=True)
     approved = models.BooleanField(default=False)
+
     def __str__(self):
-        return f'{self.name} - post : {self.post}'
+        return f'{self.profile.first_name} {self.profile.last_name} - post: {self.post}'
+
     class Meta:
         ordering = ('-created_date',)

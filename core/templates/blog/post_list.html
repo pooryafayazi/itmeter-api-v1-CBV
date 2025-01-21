@@ -468,7 +468,7 @@
                                 <div class="blog-box row">                                    
                                     <div class="col-md-4">
                                         <div class="post-media">
-                                            <a href="tech-single.html" title="">
+                                            <a href="{% url 'blog:post-detail' pk=post.id %}" title="">
                                                 <img src="{{ post.image.url }}" alt="" class="img-fluid">
                                                 <div class="hovereffect"></div>
                                             </a>
@@ -476,12 +476,12 @@
                                     </div><!-- end col -->
 
                                     <div class="blog-meta big-meta col-md-8">
-                                        <h4><a href="tech-single.html" title="">{{ post.title }}</a></h4>
+                                        <h4><a href="{% url 'blog:post-detail' pk=post.id %}" title="">{{ post.title }}</a></h4>
                                         <p> {{ post.content }} </p>
-                                        <small class="firstsmall"><a class="bg-orange" href="tech-category-01.html" title=""> {{ post.category }} </a></small>
-                                        <small><a href="tech-single.html" title="">{{ post.created_date }}</a></small>
-                                        <small><a href="tech-author.html" title="">{{ post.author.first_name }} {{ post.author.last_name }}</a></small>
-                                        <small><a href="tech-single.html" title=""> <i class="fa fa-eye"></i> {{ post.counted_views}} views</a></small>
+                                        <small class="firstsmall"><a class="bg-orange" href="{% url 'blog:post-detail' pk=post.id %}" title=""> {{ post.category }} </a></small>
+                                        <small><a href="{% url 'blog:post-detail' pk=post.id %}" title="">{{ post.created_date }}</a></small>
+                                        <small><a href="{% url 'blog:post-detail' pk=post.id %}" title="">{{ post.author.first_name }} {{ post.author.last_name }}</a></small>
+                                        <small><a href="{% url 'blog:post-detail' pk=post.id %}" title=""> <i class="fa fa-eye"></i> {{ post.counted_views}} views</a></small>
                                     </div><!-- end meta -->                                    
                                 </div><!-- end blog-box -->
                                 <hr class="invis">

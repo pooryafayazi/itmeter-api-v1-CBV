@@ -1,0 +1,36 @@
+{% load static %}
+<div class="custombox prevnextpost clearfix">
+    <div class="row">
+        {% if previous_post %} 
+            <div class="col-lg-6">
+                <div class="blog-list-widget">
+                    <div class="list-group">
+                        <a href="tech-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="w-100 justify-content-between text-right">
+                                <img src="{{ previous_post.image.url }}" alt="" class="img-fluid float-right">
+                                <h5 class="mb-1"> <a href="{% url 'blog:post-detail' previous_post.id %}">{{ previous_post.title }}</a> </h5>
+                                <small>پست قبلی</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div><!-- end col -->
+        {% endif %}
+
+        {% if next_post %}
+            <div class="col-lg-6">
+                <div class="blog-list-widget">
+                    <div class="list-group">
+                        <a href="tech-single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="w-100 justify-content-between">
+                                <img src="{{ next_post.image.url }}" alt="" class="img-fluid float-left">
+                                <h5 class="mb-1"> <a href="{% url 'blog:post-detail' next_post.id %}">{{ next_post.title }}</a> </h5>
+                                <small>پست بعدی</small>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div><!-- end col -->
+        {% endif %}
+    </div><!-- end row -->
+</div><!-- end author-box -->

@@ -24,7 +24,10 @@ urlpatterns += router.urls
 
 urlpatterns += [
     path('posts/', views.PostListView.as_view(), name='post_list'),
-    path('post/<int:pk>/', views.PostSingleView.as_view() ,name='post-single'),
+    path('post/<int:pk>/', views.PostDetailView.as_view() ,name='post-detail'),
+    # path('comment/<int:pk>/', views.PostCommentView.as_view(), name='post-comment'),
+    
+    # path('redirect<int:pk>/', views.RedirecttoPostSingleView.as_view(), name='redirect'),
     path('create/', views.PostCreateView.as_view(), name='post-create'),
     path('edit/<int:pk>/', views.PostUpdateView.as_view(), name='post-update'),
     path('delete/<int:pk>/', views.PostDeleteView.as_view(), name='post-delete'),

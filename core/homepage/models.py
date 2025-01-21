@@ -1,7 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from blog.models import Category
-# from taggit.managers import TaggableManager
+from accounts.models import Profile,User
+from taggit.managers import TaggableManager
 
 # Create your models here.
 class Contact(models.Model):
@@ -33,7 +34,7 @@ class News(models.Model):
     source = models.URLField()
     title = models.CharField(max_length=255)
     content = models.TextField()
-    # tags = TaggableManager()
+    tags = TaggableManager()
     category = models.ManyToManyField(Category)
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, null=True)
     counted_views = models.IntegerField(default=0) # default=0
@@ -54,14 +55,17 @@ class News(models.Model):
     
 class newsComment(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE)
-    name = models.CharField(max_length=255)
-    email = models.EmailField()
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)  # Link to Profile
+    user = models.ForeignKey(User, on_delete=models.CASCADE)  # Link to User model
     subject = models.CharField(max_length=255)
     message = models.TextField()
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
+    
     def __str__(self):
-        return f'{self.name} - post : {self.news}'
+        return f'{self.profile.first_name} {self.profile.last_name} - post: {self.post}'
+
     class Meta:
         ordering = ('-created_date',)
+        

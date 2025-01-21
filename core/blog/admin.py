@@ -26,9 +26,7 @@ class PostAdmin (SummernoteModelAdmin):
 class PostCommentAdmin (admin.ModelAdmin):
     date_hierarchy = 'created_date'
     empty_value_display = "-empty-"
-    #fields = [ "title"]
-    #exclude = ["birth_date"]
-    list_display = ["name","post", "approved","created_date",'updated_date']
+    list_display = ["user","profile","post", "approved","created_date",'updated_date']
     list_filter =  ["post",'updated_date',"approved",]
     
     

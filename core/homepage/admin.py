@@ -31,7 +31,7 @@ class NewsCommentAdmin(admin.ModelAdmin):
     empty_value_display = "-empty-"
     #fields = [ "title"]
     #exclude = ["birth_date"]
-    list_display = ["name","news", "approved","created_date",'updated_date']
+    list_display = ["user","profile","news", "approved","created_date",'updated_date']
     list_filter =  ["news",'updated_date',"approved",]
 
 

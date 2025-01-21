@@ -12,8 +12,8 @@
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
                                       <!--<span class="bg-orange"><a href="blog.html" title="">{{post.topic}}</a></span>-->
-                                        <h4><a href="{% url 'blog:post-single' pk=post.id %}" title="">{{post.title}}</a></h4>
-                                        <small><a href="{% url 'blog:post-single' pk=post.id %}" title="">{{post.published_date|date:"d D m Y"}}</a></small>
+                                        <h4><a href="{% url 'blog:post-detail' pk=post.id %}" title="">{{post.title}}</a></h4>
+                                        <small><a href="{% url 'blog:post-detail' pk=post.id %}" title="">{{post.published_date|date:"d D m Y"}}</a></small>
                                         <small><a href="author.html" title="">{{post.author.first_name}} {{post.author.last_name}}</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
@@ -29,8 +29,8 @@
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
                                     <!--<span class="bg-orange"><a href="blog.html" title="">{{post.topic}}</a></span>-->
-                                        <h4><a href="{% url 'blog:post-single' pk=post.id %}" title="">{{post.title}}</a></h4>
-                                        <small><a href="{% url 'blog:post-single' pk=post.id %}" title="">{{post.published_date|date:"d D m Y"}}</a></small>
+                                        <h4><a href="{% url 'blog:post-detail' pk=post.id %}" title="">{{post.title}}</a></h4>
+                                        <small><a href="{% url 'blog:post-detail' pk=post.id %}" title="">{{post.published_date|date:"d D m Y"}}</a></small>
                                         <small><a href="author.html" title="">{{post.author.first_name}} {{post.author.last_name}}</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->

@@ -1,44 +1,24 @@
 {% load static %}
-<div class="custombox clearfix">
-    <h4 class="small-title">3 کامنت</h4>
+<div class="custombox clearfix"> 
+    <h4 class="small-title">{{ post.postcomment_set.count }} کامنت</h4>
     <div class="row">
         <div class="col-lg-12">
             <div class="comments-list">
+                {% for comment in post.postcomment_set.all %}
                 <div class="media">
                     <a class="media-left" href="#">
                         <img src="{% static 'upload/author.jpg' %}" alt="" class="rounded-circle">
                     </a>
                     <div class="media-body">
-                        <h4 class="media-heading user_name">سارا زمانی <small>5 روز قبل</small></h4>
-                        <p>ورزش غرفه عکس استامپتاون کیف حمل و نقل بنکسی، دسته کوچک فریگان اما. آبجو کرافت، آموزش  غرفه عکس و چیپس کلم پیچ 8 بیتی بخشی از میان وعده های  عمیق  خواهد بود. به نحوی من انتخاب خواهم شد،  مانند  در سوآگ آماده اومامی. سلفی کیک استارتر آیفون، نوشیدن سرکه جین.</p>
+                        <h4 class="media-heading user_name">{{ comment.profile.first_name }} {{ comment.profile.last_name }}</h4>
+                        <h4 class="media-heading user_name"><small>{{ comment.created_date|timesince }} قبل</small></h4>
+                        <p>{{ comment.message }}</p>
                         <a href="#" class="btn btn-primary btn-sm">پاسخ</a>
                     </div>
                 </div>
-                <div class="media">
-                    <a class="media-left" href="#">
-                        <img src="{% static 'upload/author_01.jpg' %}" alt="" class="rounded-circle">
-                    </a>
-                    <div class="media-body">
-
-                        <h4 class="media-heading user_name">داریوش شهریار <small>5 روز قبل</small></h4>
-
-                        <p>نوشیدن سرکه . سلفی‌های کلیشه‌ای لومو بیودیزل نوترا. شورت فیکسی نتیجه فلکسیتریار چهار لوکو تمپور دویس قهوه تک اصل. بنکسی، نخبه کوچک.</p>
-
-                        <a href="#" class="btn btn-primary btn-sm">پاسخ</a>
-                    </div>
-                </div>
-                <div class="media last-child">
-                    <a class="media-left" href="#">
-                        <img src="{% static 'upload/author_02.jpg' %}" alt="" class="rounded-circle">
-                    </a>
-                    <div class="media-body">
-
-                        <h4 class="media-heading user_name">اردشیر بابک <small>5 روز قبل</small></h4>
-                        <p>کیک استارتر  رترو. نوشیدن سرکه . سلفی‌های کلیشه‌ای لومو بیودیزل نوترا. شورت فیکسی نتیجه فلکسیتریار چهار لوکو تمپور دویس قهوه تک اصل. بنکسی، نخبه کوچک.</p>
-
-                        <a href="#" class="btn btn-primary btn-sm">پاسخ</a>
-                    </div>
-                </div>
+                {% empty %}
+                <p>برای این پست کامنتی وجود ندارد.</p>
+                {% endfor %}
             </div>
         </div><!-- end col -->
     </div><!-- end row -->
@@ -46,17 +26,26 @@
 
 <hr class="invis1">
 
-                            <div class="custombox clearfix">
-                                <h4 class="small-title">یک پاسخ بگذارید</h4>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <form class="form-wrapper">
-                                            <input type="text" class="form-control" placeholder="Your name">
-                                            <input type="text" class="form-control" placeholder="Email address">
-                                            <input type="text" class="form-control" placeholder="Website">
-                                            <textarea class="form-control" placeholder="Your comment"></textarea>
-                                            <button type="submit" class="btn btn-primary">ارسال نظر</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
+<div class="custombox clearfix">
+    <h4 class="small-title">ارسال کامنت </h4>
+    <div class="row">
+        <div class="col-lg-12">
+            
+            {% if current_user.is_authenticated %}
+                <p>شما با ایمیل زیر لاگین هستید :</p>
+                <p>{{ current_user.email}}</p>
+                <!-- <p>{{ current_user.profile.id }}</p> -->
+            
+                <form class="form-wrapper" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="profile" class="form-control" value="{{ current_user.profile.id }}">
+                    <input type="text" name="subject" class="form-control" placeholder="موضوع">
+                    <textarea class="form-control" name="message" placeholder="نظر خود را بنویسید..."></textarea>
+                    <button type="submit" class="btn btn-primary">ارسال نظر</button>
+                </form>
+            {% else %}
+                <p>برای ثبت نظر ابتدا لاگین شودید :</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
