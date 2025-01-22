@@ -497,17 +497,11 @@
                                         <small><a href="{% url 'blog:post-detail' pk=post.id %}" title="">{{ post.created_date }}</a></small>
                                         <small><a href="{% url 'blog:post-detail' pk=post.id %}" title="">{{ post.author.first_name }} {{ post.author.last_name }}</a></small>
                                         <small><a href="{% url 'blog:post-detail' pk=post.id %}" title=""> <i class="fa fa-eye"></i> {{ post.counted_views}} views</a></small>
-                                        
+                                        {% if request.user.is_authenticated %}
                                         <a type="button" href="{% url 'blog:post-delete' pk=post.id %}" class="text-danger" data-mdb-tooltip-init title="Delete todo"><i class="fas fa-trash-alt"></i></a>
-                                       
                                         <p> {{ post.author }} == {{ user_email }}</p>
-                                        
-                                     
-                                       
-                                           
-                                                <button class="edit-button">Edit</button>
-
-                                         
+                                        <button class="edit-button">Edit</button>
+                                         {% endif %}
                                         
                                    
                                     </div><!-- end meta -->                                    
