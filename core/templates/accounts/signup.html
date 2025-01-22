@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Task</title>
+  <link rel="stylesheet" href="{% static 'css/version/main.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
+</head>
+<body>
+  <section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card" id="list1" style="border-radius: .75rem; background-color: #eff1f2;">
+            <div class="card-body py-4 px-4 px-md-5">
+  
+              
+  
+              
+              <div class="d-flex justify-content-center align-items-center  pt-2 pb-3">
+                    <h2>Register</h2></div>
+                    <form method="post" action="{% url 'accounts:signup' %}" novalidate>
+                      {% csrf_token %}
+                      <div class="d-flex justify-content-center align-items-center  pt-2 pb-3">
+                          <input type="email" name="email" class="form-control" id="floatingInput" placeholder="Enter your Email">
+                          <!-- <label for="floatingInput">Username</label> -->
+                      </div>
+                      <div class="d-flex justify-content-center align-items-center  pt-2 pb-3">
+                          <input type="password" name="password1" class="form-control mb-0" id="floatingPassword" placeholder="Password">
+                          <!-- <label for="floatingPassword">Password</label> -->
+                      </div>
+                      <div class="d-flex justify-content-center align-items-center  pt-2 pb-3">
+                          <input type="password" name="password2" class="form-control" id="floatingPassword" placeholder="Confirm Password">
+                          <!-- <label for="floatingPassword">Repeate Password</label> -->
+                      </div>
+              
+                      <div class="d-flex justify-content-center align-items-center  pt-2 pb-3">
+                      <button type="submit">Register</button></div>
+                      </form>
+                      <div class="d-flex justify-content-center align-items-center  pt-2 pb-3">
+                      
+              
+                      <p>Already have an account? <a href="{% url 'accounts:login' %}">Login here</a>.</p>
+                </div>
+                <div class="d-flex justify-content-center align-items-center  pt-2 pb-3">
+
+                {% if form.errors %}
+                          <div class="error">
+                              <ul>
+                                  {% for field in form %}
+                                      {% for error in field.errors %}
+                                          <li>{{ error }}</li>
+                                      {% endfor %}
+                                  {% endfor %}
+                                  {% for error in form.non_field_errors %}
+                                      <li>{{ error }}</li>
+                                  {% endfor %}
+                              </ul>
+                          </div>
+                      {% endif %}
+                      </div>
+              
+                </div>
+
+
+                  
+
+
+      
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

@@ -443,6 +443,17 @@
                                 <a class="nav-link" href="#"><i class="fa fa-apple"></i></a>
                             </li> -->
                         </ul>
+                        <ul  class="navbar-nav mr-auto">
+                            {% if request.user.is_authenticated %}
+                            <li class="nav-item nav-link">ایمیل شما : {{ user_email }}</li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'accounts:logout' %}">خروج</a></li>
+                            {% else %}
+
+                            <li class="nav-item"><a class="nav-link" href="{% url 'accounts:login' %}">ورود</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'accounts:signup' %}">ثبت نام</a></li>
+                            {% endif %}                           
+                            
+                        </ul>
                     </div>
                     <a class="navbar-brand" href="tech-index.html"><img src="images/version/tech-logo.png" alt=""></a>
 
@@ -486,10 +497,25 @@
                                         <small><a href="{% url 'blog:post-detail' pk=post.id %}" title="">{{ post.created_date }}</a></small>
                                         <small><a href="{% url 'blog:post-detail' pk=post.id %}" title="">{{ post.author.first_name }} {{ post.author.last_name }}</a></small>
                                         <small><a href="{% url 'blog:post-detail' pk=post.id %}" title=""> <i class="fa fa-eye"></i> {{ post.counted_views}} views</a></small>
+                                        
+                                        <a type="button" href="{% url 'blog:post-delete' pk=post.id %}" class="text-danger" data-mdb-tooltip-init title="Delete todo"><i class="fas fa-trash-alt"></i></a>
+                                       
+                                        <p> {{ post.author }} == {{ user_email }}</p>
+                                        
+                                     
+                                       
+                                           
+                                                <button class="edit-button">Edit</button>
+
+                                         
+                                        
+                                   
                                     </div><!-- end meta -->                                    
                                 </div><!-- end blog-box -->
                                 <hr class="invis">
-                                {% if forloop.counter == 2 %}                                                                                              
+                                {% if forloop.counter == 2 %} 
+                              
+                                                                                                                         
                                 <div class="row">
                                     <div class="col-lg-10 offset-lg-1">
                                         <div class="banner-spot clearfix">
@@ -729,6 +755,24 @@
                 </div><!-- end row -->
             </div><!-- end container -->
         </section>
+        <!-- <script>
+            const authenticatedUserEmail = "{{ user_email }}";
+            function checkUserEmail() {
+                const posts = document.querySelectorAll('.blog-box');
+        
+                posts.forEach(post => {
+                    const creatorEmail = post.querySelector('.post').getAttribute('data-creator-email');
+                    const editButton = post.querySelector('.edit-button');
+        
+                    if (authenticatedUserEmail === creatorEmail) {
+                        editButton.style.display = 'block'; 
+                    } else {
+                        editButton.style.display = 'none'; 
+                    }
+                });
+            }        
+            window.onload = checkUserEmail;
+        </script> -->
 
         <footer class="footer">
             <div class="container">
@@ -799,6 +843,7 @@
         </footer><!-- end footer -->
 
         <div class="dmtop">برو بالا</div>
+        
         
     </div><!-- end wrapper -->
 

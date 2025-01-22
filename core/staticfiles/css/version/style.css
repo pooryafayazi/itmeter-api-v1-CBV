@@ -1617,9 +1617,9 @@ hr.invis3 {
 }
 
 .btn {
-    background-color: #111111;
-    border: 0 none;
-    border-radius: 0;
+    background-color: #6dbaf5;
+    border: 1px solid #111111;
+    border-radius: 12px;
     font-size: 14px;
     font-weight: bold;
     padding: 0.8rem 2rem;

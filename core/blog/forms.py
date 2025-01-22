@@ -10,7 +10,7 @@ class PostCommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super(PostCommentForm, self).__init__(*args, **kwargs)
-        if user and user.is_authenticated:
+        if user and user.is_authenticated: # check if user is authenticated
             try:
                 profile = user.profile 
                 self.fields['profile'].initial = profile 
@@ -29,7 +29,7 @@ class PostCommentForm(forms.ModelForm):
 class CreatePostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['image', 'author', 'title', 'topic', 'content', 'tags', 'category', 'status', 'login_require', 'published_date']
+        fields = ['image', 'title', 'topic', 'content', 'tags', 'category', 'status', 'login_require', 'published_date']
         widgets = {
             'published_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
             'content': forms.Textarea(attrs={'rows': 5, 'cols': 20}),

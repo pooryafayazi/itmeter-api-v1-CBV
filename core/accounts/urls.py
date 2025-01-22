@@ -34,6 +34,11 @@ urlpatterns = [
     # login jwt
     path('jwt/create/', views.CustomTokenObtainPairView.as_view(), name='jwt-create'),
     path('jwt/refresh/', TokenRefreshView.as_view(), name='jwt-refresh'),
-    path('jwt/verify/', TokenVerifyView.as_view(), name='jwt-verify'),    
+    path('jwt/verify/', TokenVerifyView.as_view(), name='jwt-verify'),
     
+     
+    # from itemeter
+    path('login/', views.login_view ,name='login'),
+    path('logout', views.logout_view ,name='logout'),
+    path('signup', views.signup_view ,name='signup'),  
 ]
