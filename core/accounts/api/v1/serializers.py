@@ -7,8 +7,9 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
+from ...models import User,Profile
 
-from .models import User,Profile
+
 
 class RegistrationSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(max_length=255, write_only=True)
@@ -28,8 +29,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
             
     def create(self, validated_data):
         validated_data.pop('password1',None)
-        return User.objects.create_user(**validated_data)
-    
+        return User.objects.create_user(**validated_data)    
 
 
 
@@ -74,6 +74,9 @@ class CustomAuthTokenSerializer(serializers.Serializer):
         attrs['user'] = user
         return attrs
 
+
+
+
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     
     def validate(self, attrs):
@@ -85,8 +88,10 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         return validated_data
 
 
-class ChangePasswordSerializer(serializers.Serializer):
 
+
+
+class ChangePasswordSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True)
     new_password1 = serializers.CharField(required=True)
@@ -98,8 +103,10 @@ class ChangePasswordSerializer(serializers.Serializer):
             validate_password(attrs.get('new_password'))
         except exceptions.ValidationError as e:
             raise serializers.ValidationError({'new_password':list(e.messages)})
-        
+                
         return super().validate(attrs)
+    
+    
     
 class ProfileSerializer(serializers.ModelSerializer):
     email = serializers.CharField(source = 'user.email',read_only=True)
@@ -107,6 +114,8 @@ class ProfileSerializer(serializers.ModelSerializer):
         model = Profile
         fields = ['id', 'email', 'first_name', 'last_name', 'image', 'description']
         read_only_fields = ['email']
+        
+        
         
 class ActivationResendSerializer(serializers.Serializer):
     email = serializers.EmailField(required = True)
@@ -121,6 +130,7 @@ class ActivationResendSerializer(serializers.Serializer):
             raise serializers.ValidationError({'detail' : 'User is already activated and verified.'})
         attrs['user'] = user_obj
         return super().validate(attrs)
+    
     
     
 class ResetPasswordSerializer(serializers.Serializer):
@@ -141,6 +151,7 @@ class ResetPasswordSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         return validated_data
+
 
 
 class ResetPasswordConfirmSerializer(serializers.Serializer):
