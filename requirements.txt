@@ -8,6 +8,7 @@ Django==4.2.18
 django-filter==24.3
 django-mail-templated==2.6.5
 django-summernote==0.8.20.0
+django-taggit==6.1.0
 djangorestframework==3.14.0
 djangorestframework_simplejwt==5.4.0
 drf-yasg[validation]
@@ -38,4 +39,3 @@ typing_extensions==4.12.2
 uritemplate==4.1.1
 urllib3==2.3.0
 wheel==0.40.0
-django-taggit==6.1.0
