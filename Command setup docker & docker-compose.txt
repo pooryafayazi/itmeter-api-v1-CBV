@@ -1,0 +1,14 @@
+# setup docker & docker-compose in ubuntu
+
+nano /etc/resolv.conf
+nameserver 178.22.122.100
+nameserver 185.51.200.2
+
+sudo apt-get update
+sudo apt-get upgrade -y
+apt  install docker.io
+sudo groupadd docker
+sudo usermod -aG docker $USER
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+apt  install docker-compose
